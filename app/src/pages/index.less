@@ -1,0 +1,45 @@
+@linkFontColor: #2b2c2e;
+@borderColor: #ced0d6;
+@bgGrayColor: #F0F2F7;
+
+.text-overflow {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.content{
+  width: 1200px;
+  margin: 0 auto;
+  padding: 54px 0 24px 0;
+}
+
+.textCenter{
+  text-align: center;
+}
+
+.welcome {
+  height: 328px;
+  background: url(../assets/yay.jpg) no-repeat center 0;
+  background-size: 388px 328px;
+}
+
+.departmentBox{
+  padding-top: 24px;
+}
+.titleTable{
+  color: @linkFontColor;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 36px;
+  border-bottom: 1px dotted @borderColor;
+}
+.contentTable{
+  @linkFontColor: #2b2c2e;
+  font-size: 14px;
+  line-height: 36px;
+  font-weight: 500;
+  padding: 4px 0;
+  border-bottom: 1px dotted @borderColor;
+  .text-overflow;
+}

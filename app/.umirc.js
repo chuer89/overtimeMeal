@@ -7,7 +7,7 @@ export default {
       antd: true,
       dva: true,
       dynamicImport: true,
-      title: 'app',
+      title: '点餐小工具',
       dll: true,
       pwa: false,
       routes: {
@@ -16,4 +16,5 @@ export default {
       hardSource: true,
     }],
   ],
+  history: 'hash',
 }
