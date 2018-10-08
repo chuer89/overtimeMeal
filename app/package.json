@@ -8,6 +8,7 @@
     "precommit": "lint-staged"
   },
   "devDependencies": {
+    "axios": "^0.18.0",
     "babel-eslint": "^9.0.0",
     "eslint": "^5.4.0",
     "eslint-config-umi": "^0.1.5",

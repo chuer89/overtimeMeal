@@ -1,3 +1,4 @@
+import httpServer from './../services/';
 
 export default {
 
@@ -21,12 +22,15 @@ export default {
     ],
 
     data: [{
-      number: 10, remark: '备注信息'
+      number: 10, remark: '',
     }]
   },
 
   subscriptions: {
     setup({ dispatch, history }) {  // eslint-disable-line
+      // httpServer.test();
+
+      httpServer.department();
     },
   },
 

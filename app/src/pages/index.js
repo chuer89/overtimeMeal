@@ -1,5 +1,5 @@
 import styles from './index.less';
-import { Input, Button, Row, Col, InputNumber } from 'antd';
+import { Input, Button, Row, Col, InputNumber, Icon } from 'antd';
 import { connect } from 'dva';
 import _ from 'lodash';
 import React from 'react';
@@ -15,7 +15,7 @@ class AppIndex extends React.Component {
   }
 
   render() {
-    let { app } = this.props;
+    let { app, dispatch } = this.props;
     let { department, data } = app;
     let { title, span } = this.state;
 
@@ -28,17 +28,33 @@ class AppIndex extends React.Component {
 
       return (
         <Col key={index} span={span[index]} className={boxClassName}>
-          <div className={styles.titleTable}>{item.name}</div>
+          <div className={styles.titleTable}>
+            {item.name}
+          </div>
         </Col>
       )
     });
 
     // 分数
+    let handerChangeNumber = (value, index) => {
+      if (!data[index]) {
+        data[index] = {
+          number: value,
+        }
+      } else {
+        data[index].number = value;
+      }
+      
+      dispatch({
+        type: 'app/save',
+        payload: data,
+      });
+    }
     let renderNumber = department.map((item, index) => {
       let value = _.get(data, index + '.number') || '';
       return (
         <div className={styles.contentTable} key={index}>
-          <InputNumber min={1} max={100} defaultValue={value} />
+          <InputNumber min={0} max={100} defaultValue={value} onChange={(value) => {handerChangeNumber(value, index)}} />
         </div>
       )
     });
@@ -50,11 +66,21 @@ class AppIndex extends React.Component {
         <div className={styles.contentTable} key={index}>{remarks}</div>
       )
     });
+    // let renderRemark = '';
 
     let renderList = department.map((item, index) => {
       return (
-        <div key={index} className={styles.contentTable}>{item.name}</div>
+        <div key={index} className={styles.contentTable}>
+          <Icon type="minus-circle" theme="outlined" className={styles.departmentDel} />
+          {item.name}
+        </div>
       )
+    });
+
+    // 总份
+    let allNumber = 0;
+    _.forEach(data, (item) => {
+      allNumber += item.number;
     });
 
     console.log(department)
@@ -82,8 +108,8 @@ class AppIndex extends React.Component {
             </Row>
           </div>
         </div>
-        <div>
-          总计：xx份
+        <div className={styles.numberAll}>
+          总计：<span>{allNumber}</span>份
         </div>
       </div>
     )
