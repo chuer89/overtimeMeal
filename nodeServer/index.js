@@ -1,5 +1,7 @@
 
+var bodyParser = require('body-parser');
 var express = require('express');
+// var qs = require('qs');
 var app = express();
 
 app.all('*', function(req, res, next) {
@@ -11,14 +13,38 @@ app.all('*', function(req, res, next) {
   next();
 });
 
+let jsonStr = function (json) {
+  return JSON.stringify(json);
+}
+// 创建 application/x-www-form-urlencoded 编码解析
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
+// create application/json parser
+var jsonParser = bodyParser.json()
+
 app.get('/department', function (req, res) {
   // res.send({
-  //   user: '1', y: 2
+  //   user: '1', y: 2, reqs: req || ''
   // });
   res.send(JSON.stringify({
-    y: 1, b: 2
+    y: 1, b: 2, r: req
   }))
+  // res.json({
+  //   y: req,
+  //   z: 2
+  // })
 });
+
+app.post('/test', urlencodedParser, function (req, res) {
+  let bodyData = req.body;
+  console.log(bodyData)
+  var data = {
+    name: '1',
+    y: 2,
+    r: bodyData
+  }
+  res.json(data);
+  // res.send(jsonStr(data));
+})
  
 var server = app.listen(8081, function () {
  
