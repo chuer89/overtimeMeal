@@ -10,11 +10,7 @@ const Remark = ({ visibleRemark, handleCancel, handerAdd, remarkValue }) => {
     value = e.target.value;
   }
   let handerClick = () => {
-    if (!value) {
-      message.error('请填写备注');
-    } else {
-      handerAdd(value);
-    }
+    handerAdd(value);
   }
 
   let contentRemarkCss = {
