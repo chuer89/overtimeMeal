@@ -1,4 +1,9 @@
 
+// forever start overtimeMeal.js
+// forever stop overtimeMeal.js
+// forever restart overtimeMeal.js
+// forever list
+
 var bodyParser = require('body-parser');
 var express = require('express');
 var _ = require('lodash');
