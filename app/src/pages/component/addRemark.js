@@ -1,5 +1,4 @@
-import { Modal, Button, Input } from 'antd';
-import { message } from 'antd';
+import { Modal, Input, message } from 'antd';
 import _ from 'lodash';
 
 const { TextArea } = Input;
