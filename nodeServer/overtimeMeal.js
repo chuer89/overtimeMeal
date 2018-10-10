@@ -17,11 +17,11 @@ app.all('*', function(req, res, next) {
 
 // 部门
 var department = [
-  { name: '管理', number: 10, remark: '不要香菜' },
+  { name: '管理', number: 0, },
   { name: '行政', number: 0 },
   { name: '产品部', number: 0, },
   { name: '设计部', number: 0, },
-  { name: 'java部', number: 2 },
+  { name: 'java部', number: 0, },
   { name: '运维部', number: 0, },
   { name: 'web前端部', number: 0, },
   { name: 'Android部', number: 0, },
