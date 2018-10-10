@@ -2,7 +2,7 @@
 import axios from 'axios';
 import qs from 'qs';
 
-let host = '//192.168.88.157:8081';
+let host = '//39.104.28.40:20101';
 let ajax = (api, param = {}) => {
   return axios.post(host + api, qs.stringify(param));
 }
