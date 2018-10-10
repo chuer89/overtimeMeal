@@ -5,32 +5,16 @@ export default {
   namespace: 'app',
 
   state: {
-    department: [
-      { name: '管理' },
-      { name: '行政' },
-      { name: '产品部' },
-      { name: '设计部' },
-      { name: 'java部' },
-      { name: '运维部' },
-      { name: 'web前端部' },
-      { name: 'Android部' },
-      { name: 'Ios部' },
-      { name: '测试部' },
-      { name: '文案部' },
-      { name: '育牛研究部' },
-      { name: '植物研究部' },
-    ],
-
-    data: [{
-      number: 10, remark: '',
-    }]
+    department: [],
   },
 
   subscriptions: {
     setup({ dispatch, history }) {  // eslint-disable-line
       // httpServer.test();
 
-      httpServer.department();
+      dispatch({
+        type: 'getDepartment'
+      });
     },
   },
 
@@ -38,6 +22,39 @@ export default {
     *fetch({ payload }, { call, put }) {  // eslint-disable-line
       yield put({ type: 'save' });
     },
+
+    *getDepartment({ payload }, { call, put }) {
+      const temp = yield call(httpServer.department, payload);
+      let { data } = temp;
+      yield put({
+        type: 'save',
+        payload: {
+          department: data,
+        }
+      });
+    },
+
+    *meal({ payload }, { call, put }) {
+      const temp = yield call(httpServer.meal, payload);
+      let { data } = temp;
+      yield put({
+        type: 'save',
+        payload: {
+          department: data,
+        }
+      })
+    },
+
+    *clear({ payload }, { call, put }) {
+      const temp = yield call(httpServer.clear, payload);
+      let { data } = temp;
+      yield put({
+        type: 'save',
+        payload: {
+          department: data,
+        }
+      })
+    }
   },
 
   reducers: {

@@ -1,6 +1,8 @@
 
 var bodyParser = require('body-parser');
 var express = require('express');
+var _ = require('lodash');
+
 // var qs = require('qs');
 var app = express();
 
@@ -13,37 +15,52 @@ app.all('*', function(req, res, next) {
   next();
 });
 
-let jsonStr = function (json) {
-  return JSON.stringify(json);
-}
+// 部门
+var department = [
+  { name: '管理', number: 10, remark: '不要香菜' },
+  { name: '行政', number: 0 },
+  { name: '产品部', number: 0, },
+  { name: '设计部', number: 0, },
+  { name: 'java部', number: 2 },
+  { name: '运维部', number: 0, },
+  { name: 'web前端部', number: 0, },
+  { name: 'Android部', number: 0, },
+  { name: 'Ios部', number: 0, },
+  { name: '测试部', number: 0, },
+  { name: '文案部', number: 0, },
+  { name: '育牛研究部', number: 0, },
+  { name: '植物研究部', number: 0, },
+];
+
 // 创建 application/x-www-form-urlencoded 编码解析
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
-// create application/json parser
-var jsonParser = bodyParser.json()
 
-app.get('/department', function (req, res) {
-  // res.send({
-  //   user: '1', y: 2, reqs: req || ''
-  // });
-  res.send(JSON.stringify({
-    y: 1, b: 2, r: req
-  }))
-  // res.json({
-  //   y: req,
-  //   z: 2
-  // })
+// 获取部门
+app.post('/department', function (req, res) {
+  res.json(department);
 });
 
-app.post('/test', urlencodedParser, function (req, res) {
-  let bodyData = req.body;
-  console.log(bodyData)
-  var data = {
-    name: '1',
-    y: 2,
-    r: bodyData
+// 清空
+app.post('/clear', (req, res) => {
+  _.forEach(department, (item) => {
+    item.number = 0;
+    item.remark = '';
+  });
+  res.json(department);
+});
+
+// 点餐
+app.post('/meal', urlencodedParser, function (req, res) {
+  var bodyData = req.body;
+  let { index, value, isRemark } = bodyData;
+
+  if (isRemark) {
+    department[index].remark = value;
+  } else {
+    department[index].number = ( value - 0 || 0 );
   }
-  res.json(data);
-  // res.send(jsonStr(data));
+
+  res.json(department);
 })
  
 var server = app.listen(8081, function () {
