@@ -1,9 +1,12 @@
+/**
+ * title: 加班点餐
+ */
 import styles from './index.less';
 import { Row, Col, InputNumber, Icon, Button, Modal } from 'antd';
 import { connect } from 'dva';
 import _ from 'lodash';
 import React from 'react';
-import AddRemark from './component/addRemark';
+import AddRemark from './components/addRemark';
 
 const confirm = Modal.confirm;
 
