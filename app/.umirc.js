@@ -17,6 +17,6 @@ export default {
       title: '大农小工具集成',
     }],
   ],
-  // history: 'hash',
+  history: 'hash',
   hash: true,
 }
