@@ -6,6 +6,7 @@ export default {
 
   state: {
     department: [],
+    hours: 0,
   },
 
   subscriptions: {
@@ -29,7 +30,8 @@ export default {
       yield put({
         type: 'save',
         payload: {
-          department: data,
+          department: data.department,
+          hours: data.hours,
         }
       });
     },
@@ -40,7 +42,8 @@ export default {
       yield put({
         type: 'save',
         payload: {
-          department: data,
+          department: data.department,
+          hours: data.hours,
         }
       })
     },

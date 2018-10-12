@@ -26,9 +26,14 @@ class AppIndex extends React.Component {
 
   render() {
     let { app, dispatch } = this.props;
-    let { department } = app;
+    let { department, hours } = app;
     let { title, span, visibleRemark, indexList, remarkValue } = this.state;
     let self = this;
+
+    let isDisabled = true;
+    if (hours > 15 && hours < 18) {
+      isDisabled = false;
+    }
 
     // 标题
     let renderTitle = title.map((item, index) => {
@@ -60,7 +65,7 @@ class AppIndex extends React.Component {
       let value = item.number || '';
       return (
         <div className={styles.contentTable} key={index}>
-          <InputNumber min={0} max={100} value={value} onChange={(value) => {handerChangeNumber(value, index)}} />
+          <InputNumber disabled={isDisabled} min={0} max={100} value={value} onChange={(value) => {handerChangeNumber(value, index)}} />
         </div>
       )
     });
@@ -77,7 +82,7 @@ class AppIndex extends React.Component {
       let remarks = item.remark || '无';
       return (
         <div className={styles.contentTable} key={index}>
-          <Button className={styles.addRemark} size="small" onClick={() => {openRemark(index, item.remark)}}>编辑</Button>
+          <Button disabled={isDisabled} className={styles.addRemark} size="small" onClick={() => {openRemark(index, item.remark)}}>编辑</Button>
           <span title={remarks}>{remarks}</span>
         </div>
       )
@@ -147,7 +152,10 @@ class AppIndex extends React.Component {
         <div className={styles.departmentBox}>
           <div>
             <p className={styles.infoTips}>
-            提醒：本系统未实名，未防刷，未防重复点餐；<span className={styles.pointInfo}>请备注用餐人姓名，否则无效</span>。请一个部门指派一人操作，切忌误点错部门
+            提醒：本系统未实名，未防刷，未防重复点餐；<span className={styles.pointInfo}>请备注用餐人姓名，否则无效</span>。
+            请一个部门指派一人操作，切忌误点错部门
+            <br />
+            点餐时间：15:00 - 18:00
             </p>
           </div>
           <div>
