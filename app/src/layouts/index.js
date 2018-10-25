@@ -15,7 +15,8 @@ class SiderDemo extends React.Component {
   UNSAFE_componentWillMount() {
     let menusKey = {
       '/': ['1'],
-      '/navigation': ['2']
+      '/navigation': ['2'],
+      '/meeting': ['3'],
     }
     let { location } = this.props;
     let { pathname } = location;
@@ -55,6 +56,12 @@ class SiderDemo extends React.Component {
               <Link to="/navigation">
                 <Icon type="global" theme="outlined" />
                 <span>系统导航</span>
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="3">
+              <Link to="/meeting">
+                <Icon type="global" theme="outlined" />
+                <span>会议工具</span>
               </Link>
             </Menu.Item>
           </Menu>
