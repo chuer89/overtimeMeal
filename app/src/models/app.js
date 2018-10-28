@@ -48,6 +48,19 @@ export default {
       })
     },
 
+    // 入账
+    *enteryAccount({ payload }, { call, put }) {
+      const temp = yield call(httpServer.enteryAccount, payload);
+      let { data } = temp;
+      // yield put({
+      //   type: 'save',
+      //   payload: {
+      //     department: data.department,
+      //     hours: data.hours,
+      //   }
+      // })
+    },
+
     *clear({ payload }, { call, put }) {
       const temp = yield call(httpServer.clear, payload);
       let { data } = temp;

@@ -1,7 +1,9 @@
 import styles from './index.less';
-import { Layout, Menu, Icon } from 'antd';
+import { Layout, Menu, Icon, LocaleProvider } from 'antd';
 import Link from 'umi/link';
 import React from 'react';
+import zh_CN from 'antd/lib/locale-provider/zh_CN';
+import 'moment/locale/zh-cn';
 
 const { Header, Sider, Content } = Layout;
 
@@ -38,47 +40,49 @@ class SiderDemo extends React.Component {
     let { selectedKeys } = this.state;
 
     return (
-      <Layout>
-        <Sider
-          trigger={null}
-          collapsible
-          collapsed={this.state.collapsed}
-        >
-          <div className={styles.logo}>快捷小工具</div>
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={selectedKeys}>
-            <Menu.Item key="1">
-              <Link to="/">
-                <Icon type="coffee" theme="outlined"/>
-                <span>加班点餐</span>
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="2">
-              <Link to="/navigation">
-                <Icon type="global" theme="outlined" />
-                <span>系统导航</span>
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="3">
-              <Link to="/meeting">
-                <Icon type="global" theme="outlined" />
-                <span>会议工具</span>
-              </Link>
-            </Menu.Item>
-          </Menu>
-        </Sider>
+      <LocaleProvider locale={zh_CN}>
         <Layout>
-          <Header style={{ background: '#fff', padding: 0 }}>
-            <Icon
-              className={styles.trigger}
-              type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-              onClick={this.toggle}
-            />
-          </Header>
-          <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: '90vh' }}>
-            { children }
-          </Content>
+          <Sider
+            trigger={null}
+            collapsible
+            collapsed={this.state.collapsed}
+          >
+            <div className={styles.logo}>快捷小工具</div>
+            <Menu theme="dark" mode="inline" defaultSelectedKeys={selectedKeys}>
+              <Menu.Item key="1">
+                <Link to="/">
+                  <Icon type="coffee" theme="outlined" />
+                  <span>加班点餐</span>
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="2">
+                <Link to="/navigation">
+                  <Icon type="global" theme="outlined" />
+                  <span>系统导航</span>
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="3">
+                <Link to="/meeting">
+                  <Icon type="global" theme="outlined" />
+                  <span>会议工具</span>
+                </Link>
+              </Menu.Item>
+            </Menu>
+          </Sider>
+          <Layout>
+            <Header style={{ background: '#fff', padding: 0 }}>
+              <Icon
+                className={styles.trigger}
+                type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
+                onClick={this.toggle}
+              />
+            </Header>
+            <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: '90vh' }}>
+              {children}
+            </Content>
+          </Layout>
         </Layout>
-      </Layout>
+      </LocaleProvider>
     );
   }
 }
@@ -89,7 +93,7 @@ function BasicLayout(props) {
   return (
     <div className={styles.normal}>
       <h1 className={styles.title}>小工具</h1>
-      { props.children }
+      {props.children}
     </div>
   );
 }

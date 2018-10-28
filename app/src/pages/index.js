@@ -7,6 +7,7 @@ import { connect } from 'dva';
 import _ from 'lodash';
 import React from 'react';
 import AddRemark from './components/addRemark';
+import EnterAccount from './components/enteryAccount';
 
 const confirm = Modal.confirm;
 
@@ -22,12 +23,14 @@ class AppIndex extends React.Component {
     visibleRemark: false,
     indexList: 0,
     remarkValue: '',
+
+    visibleEnterAccount: false,
   }
 
   render() {
     let { app, dispatch } = this.props;
     let { department, hours } = app;
-    let { title, span, visibleRemark, indexList, remarkValue } = this.state;
+    let { title, span, visibleRemark, indexList, remarkValue, visibleEnterAccount } = this.state;
     let self = this;
 
     let isDisabled = true;
@@ -126,6 +129,27 @@ class AppIndex extends React.Component {
       remarkValue,
     }
 
+    // 入账
+    let enterAccountAttr = {
+      visible: visibleEnterAccount,
+      handleCancel() {
+        self.setState({
+          visibleEnterAccount: false,
+        })
+      },
+      handerAdd(payload) {
+        dispatch({
+          type: 'app/enteryAccount',
+          payload,
+        })
+      }
+    }
+    let showEnterAccount = () => {
+      self.setState({
+        visibleEnterAccount: true,
+      })
+    }
+
     let showDeleteConfirm = () => {
       confirm({
         title: '确定清空吗?',
@@ -144,10 +168,12 @@ class AppIndex extends React.Component {
       });
     }
     
+    
     return (
       <div className={styles.content}>
         <div>
           <AddRemark {...addRemarkOpt} />
+          <EnterAccount {...enterAccountAttr} />
         </div>
         <div className={styles.departmentBox}>
           <div>
@@ -171,7 +197,7 @@ class AppIndex extends React.Component {
         </div>
         <div className={styles.numberAll}>
           总计：<span className={styles.number}>{allNumber}</span>份
-          <Button className={styles.resetBtn} type="danger" onClick={showDeleteConfirm}>清空</Button>
+          <Button className={styles.resetBtn} type="danger" onClick={showEnterAccount}>结算入账</Button>
         </div>
       </div>
     )

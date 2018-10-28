@@ -1,21 +1,46 @@
-
-// forever start overtimeMeal.js
-// forever stop overtimeMeal.js
-// forever restart overtimeMeal.js
-// forever list
-
 var bodyParser = require('body-parser');
 var express = require('express');
 var _ = require('lodash');
-
-// var qs = require('qs');
+var xlsx = require('node-xlsx');
+var fs = require('fs');
+var moment = require('moment');
 var app = express();
 
-app.all('*', function(req, res, next) {
+// var qs = require('qs');
+
+// 处理入账
+let handerEnterAccount = ({
+  date = moment(new Date()).format('YYYY-MM-DD'),
+  quantity = 0,
+  remark = ''
+}) => {
+  var obj = xlsx.parse(__dirname + '/allMeal.xlsx');
+  var excelObj = obj[0].data;
+  var tableTitle = ['日期', '份量', '备注'];
+  var tableBody = excelObj || [];
+
+  if (_.isEmpty(tableBody)) {
+    tableBody = [tableTitle];
+  }
+
+  tableBody.push([date, quantity, remark])
+  var buffer = xlsx.build([
+    {
+      name: 'sheet1',
+      data: tableBody
+    }
+  ]);
+
+  //将文件内容插入新的文件中
+  fs.writeFileSync('allMeal.xlsx', buffer, { 'flag': 'w' });
+}
+
+
+app.all('*', function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-  res.header("X-Powered-By",' 3.2.1')
+  res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+  res.header("X-Powered-By", ' 3.2.1')
   res.header("Content-Type", "application/json;charset=utf-8");
   next();
 });
@@ -75,7 +100,7 @@ app.post('/meal', urlencodedParser, function (req, res) {
     if (isRemark) {
       department[index].remark = value;
     } else {
-      department[index].number = ( value - 0 || 0 );
+      department[index].number = (value - 0 || 0);
     }
   }
 
@@ -84,13 +109,26 @@ app.post('/meal', urlencodedParser, function (req, res) {
     department,
   }
   res.json(data);
+});
+
+// 入账
+app.post('/enteryAccount', urlencodedParser, (req, res) => {
+  let { date, quantity, remark } = req.body;
+  handerEnterAccount({
+    date, quantity, remark
+  });
+  res.json({
+    status: 'success'
+  });
 })
- 
+
+
+
 var server = app.listen(20101, function () {
- 
+
   var host = server.address().address
   var port = server.address().port
- 
+
   console.log("应用实例，访问地址为 http://%s:%s", host, port)
- 
+
 })

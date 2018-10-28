@@ -3,7 +3,7 @@ import axios from 'axios';
 import qs from 'qs';
 
 let host = '//39.104.28.40:20101';
-// host = '//localhost:20101';
+host = '//localhost:20101';
 let ajax = (api, param = {}) => {
   return axios.post(host + api, qs.stringify(param));
 }
@@ -11,6 +11,10 @@ let ajax = (api, param = {}) => {
 let http = {
   meal(param) {
     return ajax('/meal', param);
+  },
+
+  enteryAccount(param) {
+    return ajax('/enteryAccount', param);
   },
 
   department() {
