@@ -35,14 +35,14 @@ class Navigation extends React.Component {
       name: 'GIT代码', link: 'http://203.6.234.220:9600/',
     }, {
       name: 'Confluence', link: 'http://203.6.234.220:9660/pages/viewpage.action?pageId=4653098',
+    }, {
+      name: 'TAPD', link: 'http://tapd.com',
     }];
 
     let farmDevData = [{
       name: 'WEB 官网', link: 'http://dev.www.worldfarm.com',
     }, {
-      name: '运营客服', link: 'http://dev.operation.worldfarm.com',
-    }, {
-      name: '后台管理系统', link: 'http://dev.admin.worldfarm.com'
+      name: '客服运营系统', link: 'http://dev.admin.worldfarm.com'
     }];
     let renderFarmDev = farmDevData.map((item, index) => {
       return (
@@ -52,9 +52,7 @@ class Navigation extends React.Component {
     let farmLineData = [{
       name: 'WEB 官网', link: 'http://www.worldfarm.com',
     }, {
-      name: '运营客服', link: 'http://operation.worldfarm.com',
-    }, {
-      name: '后台管理系统', link: 'http://admin.worldfarm.com'
+      name: '客服运营系统', link: 'http://admin.worldfarm.com'
     }];
     let renderFarmLine = farmLineData.map((item, index) => {
       return (
