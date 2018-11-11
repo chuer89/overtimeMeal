@@ -1,4 +1,4 @@
-
+import { resolve } from 'path'
 // ref: https://umijs.org/config/
 export default {
   plugins: [
@@ -7,16 +7,35 @@ export default {
       antd: true,
       dva: true,
       dynamicImport: true,
-      dll: true,
+      title: '大农小工具集成',
+      dll: false,
       pwa: false,
       routes: {
-        exclude: [/models\//, /components/],
+        exclude: [
+          /model\.(j|t)sx?$/,
+          /service\.(j|t)sx?$/,
+          /config\//,
+          /models\//,
+          /components\//,
+          /services\//,
+          /chart\/Container\.js$/,
+        ],
       },
-      hardSource: true,
-      polyfills: ['ie9'],
-      title: '大农小工具集成',
+      hardSource: false,
     }],
   ],
-  history: 'hash',
+  targets: {
+    ie: 9,
+  },
   hash: true,
+  alias: {
+    // '@config': resolve(__dirname,"./src/config"),
+    // '@common': resolve(__dirname,"./src/common"),
+    // '@utils': resolve(__dirname,"./src/utils"),
+    // '@themes': resolve(__dirname, './src/themes'),
+    '@services': resolve(__dirname, './src/services'),
+    // '@components': resolve(__dirname, './src/components'),
+    '@assets': resolve(__dirname, './src/assets'),
+  },
 }
+

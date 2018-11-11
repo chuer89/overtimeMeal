@@ -19,6 +19,7 @@ class SiderDemo extends React.Component {
       '/': ['1'],
       '/navigation': ['2'],
       '/meeting': ['3'],
+      '/map': ['4'],
     }
     let { location } = this.props;
     let { pathname } = location;
@@ -57,14 +58,20 @@ class SiderDemo extends React.Component {
               </Menu.Item>
               <Menu.Item key="2">
                 <Link to="/navigation">
-                  <Icon type="global" theme="outlined" />
+                  <Icon type="radar-chart" />
                   <span>系统导航</span>
                 </Link>
               </Menu.Item>
               <Menu.Item key="3">
                 <Link to="/meeting">
-                  <Icon type="global" theme="outlined" />
-                  <span>会议工具</span>
+                  <Icon type="gold" theme="outlined" />
+                  <span>预定会议</span>
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="4">
+                <Link to="/map">
+                <Icon type="global" theme="outlined" />
+                  <span>工位地图</span>
                 </Link>
               </Menu.Item>
             </Menu>
